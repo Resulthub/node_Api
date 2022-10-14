@@ -1,7 +1,7 @@
 const jwt = require('jsonwebtoken')
 const bcrypt = require('bcryptjs')
 const asyncHandler = require('express-async-handler')
-const Auth = require('../models/authModel')
+const User = require('../models/userModel')
 
 
 // @desc    Register new user
@@ -16,7 +16,7 @@ const registerUser = asyncHandler(async (req, res) => {
     }
 
     //Check if user exists
-    const userExists = await Auth.findOne({email})
+    const userExists = await User.findOne({email})
 
     if(userExists){
         res.status(400)
@@ -27,7 +27,7 @@ const registerUser = asyncHandler(async (req, res) => {
     const salt = await bcrypt.genSalt(10)
     const hashedPassword = await bcrypt.hash(password, salt)
 
-    const user = await Auth.create({
+    const user = await User.create({
         name,
         email,
         password: hashedPassword
@@ -53,7 +53,7 @@ const loginUser = asyncHandler(async (req, res) => {
     const { email, password } = req.body
 
     // Check for user email
-    const user = await Auth.findOne({email})
+    const user = await User.findOne({email})
 
     if (user && (await bcrypt.compare(password, user.password))){
         res.json({
@@ -80,7 +80,7 @@ const getMe = asyncHandler(async (req, res) => {
 const GenerateToken = (id) => {
     return jwt.sign({ id }, process.env.JWT_SECRET,{
         expiresIn: '30d',
-    } )
+    })
 }
 
 module.exports = {

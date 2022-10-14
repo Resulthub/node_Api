@@ -12,6 +12,15 @@ const getUsers = asyncHandler(async (req, res) => {
    res.status(200).json(users)
 })
 
+// @desc     GET User
+// @route    GET /api/v1/user
+// @access   Private
+
+const getMe = asyncHandler(async (req, res) => {
+    res.json({message: 'User display data' })
+})
+
+
 // @desc     ADD User
 // @route    POST /api/v1/users
 // @access   Private
@@ -105,4 +114,5 @@ module.exports = {
   addUser,
   updateUser,
   deleteUser,
+  getMe
 }
