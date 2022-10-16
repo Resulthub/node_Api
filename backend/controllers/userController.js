@@ -12,12 +12,38 @@ const getUsers = asyncHandler(async (req, res) => {
    res.status(200).json(users)
 })
 
+// // @desc     GET Users
+// // @route    GET /api/v1/users/:id
+// // @access   Private
+// const viewUser = asyncHandler(async (req, res) => {
+//     // const {_id, name, email, role} = await User.findById(req.params.id)
+//     // const users = await User.findById(req.params.id)
+//     const {email} = await User.findById(req.params.id)
+    
+//     console.log(email)
+
+//     res.status(200).json({message: "HEllo user"})
+//     //  res.json({message: 'User display data' })
+// })
+
 // @desc     GET User
 // @route    GET /api/v1/user
 // @access   Private
 
 const getMe = asyncHandler(async (req, res) => {
-    res.json({message: 'User display data' })
+    // res.json({message: 'User display data' })
+    const {_id, name, email, role} = await User.findById(req.user.id)
+    // const user = await User.find()
+
+    console.log(req.user.id)
+
+    // res.status(200).json({user })
+    res.status(200).json({
+        id: _id,
+        name,
+        email,
+        role,
+    })
 })
 
 
@@ -114,5 +140,6 @@ module.exports = {
   addUser,
   updateUser,
   deleteUser,
-  getMe
+  getMe,
+//   viewUser
 }

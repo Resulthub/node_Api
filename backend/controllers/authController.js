@@ -47,7 +47,7 @@ const registerUser = asyncHandler(async (req, res) => {
 })
 
 // @desc    Login
-// @route   POST /api/auth/login
+// @route   POST /api/users/login
 // @access  Public
 const loginUser = asyncHandler(async (req, res) => {
     const { email, password } = req.body
@@ -79,7 +79,12 @@ const getMe = asyncHandler(async (req, res) => {
 // Generate JWT 
 const GenerateToken = (id) => {
     return jwt.sign({ id }, process.env.JWT_SECRET,{
-        expiresIn: '30d',
+        expiresIn: '60s',
+        // expiresIn: "10h" // it will be expired after 10 hours
+        //expiresIn: "20d" // it will be expired after 20 days
+        //expiresIn: 120 // it will be expired after 120ms
+        //expiresIn: "120s" // it will be expired after 120s
+
     })
 }
 
