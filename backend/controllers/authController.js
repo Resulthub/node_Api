@@ -79,7 +79,7 @@ const getMe = asyncHandler(async (req, res) => {
 // Generate JWT 
 const GenerateToken = (id) => {
     return jwt.sign({ id }, process.env.JWT_SECRET,{
-        expiresIn: '60s',
+        expiresIn: '60h',
         // expiresIn: "10h" // it will be expired after 10 hours
         //expiresIn: "20d" // it will be expired after 20 days
         //expiresIn: 120 // it will be expired after 120ms
